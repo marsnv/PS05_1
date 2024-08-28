@@ -18,7 +18,7 @@ class DivannewparsSpider(scrapy.Spider):
         # А вот как перебрать и прочитать страницы светильников пока не разобрался...
 
         divans = response.css('div._Ud0k')
-        print('https://www.divan.ru/category/svet *********************************')
+        print('https://www.divan.ru/category/svet ********************************')
         print(str(len(divans)))
         for divan in divans:
             yield {
