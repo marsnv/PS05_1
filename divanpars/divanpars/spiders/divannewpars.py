@@ -1,4 +1,5 @@
 import scrapy
+import csv
 
 
 class DivannewparsSpider(scrapy.Spider):
@@ -20,10 +21,19 @@ class DivannewparsSpider(scrapy.Spider):
         divans = response.css('div._Ud0k')
         print('https://www.divan.ru/category/svet ********************************')
         print(str(len(divans)))
+        parsed_data = []
         for divan in divans:
-            yield {
-                'name': divan.css('div.wYUX2 span::text').get(),
-                'price': divan.css('div.q5Uds span::text').get(),
-                'url': divan.css('a').attrib['href']
-            }
+            # yield {
+            #     'name': divan.css('div.wYUX2 span::text').get(),
+            #     'price': divan.css('div.q5Uds span::text').get(),
+            #     'url': divan.css('a').attrib['href']
+            # }
+            name_t = divan.css('div.wYUX2 span::text').get()
+            price_t = divan.css('div.q5Uds span::text').get()
+            url_t = divan.css('a').attrib['href']
+            parsed_data.append([name_t, price_t, url_t])
 
+        with open("divan_svet.csv", 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Название товара', 'Цена товара', 'Ссылка на товар'])
+            writer.writerows(parsed_data)
