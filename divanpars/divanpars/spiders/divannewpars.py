@@ -20,6 +20,7 @@ class DivannewparsSpider(scrapy.Spider):
 
         divans = response.css('div._Ud0k')
         print('https://www.divan.ru/category/svet ********************************')
+
         print(str(len(divans)))
         parsed_data = []
         for divan in divans:
